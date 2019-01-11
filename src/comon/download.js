@@ -3,11 +3,11 @@ define(function () {
     function downLoadFile(data){
         var blob = dataURLtoBlob("data:text/csv;base64," +data);
         if(isIE()){
-            navigator.msSaveBlob(blob, "文件"+formateDate+".xml");
+            navigator.msSaveBlob(blob, "文件"+formatDate+".xml");
         }else {
             var a = document.getElementById("downLog");
             //noinspection JSDuplicatedDeclaration
-            a.download = '文件'+formateDate()+'.xml';
+            a.download = '文件'+formatDate()+'.xml';
             a.href = URL.createObjectURL(blob);
             a.click();
         }
@@ -15,7 +15,7 @@ define(function () {
     /*
     * 日期格式化
     * */
-    function formateDate(){
+    function formatDate(){
         var _addSuffix=function(value){
             value=value < 10 ? '0'+value : value;
             return value;
