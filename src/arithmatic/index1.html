@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>计算杨辉三角第n行m个数字</title>
+</head>
+<script type="text/javascript">
+    window.onload = function () {
+        /*
+         * 计算杨辉三角第n行m个数字
+         *  @param:   n-杨辉三角第n行
+         *            m-杨辉三角某行第m个
+         *  @returns:
+         * */
+        console.time("sort");
+        calculate1 = (n, m) => {
+            console.time("time");
+            if (m > n) {
+                console.log("输入不合法");
+                return;
+            }
+            let array = new Array();
+            if (n == 1 || m == 1 || n == m) {
+                console.log(1);
+            } else {
+                for (let i = 0; i < n - 1; i++) {
+                    let arrayLat = [];
+                    for (let j = 0; j < i + 1; j++) {
+                        if (i == 0 || j == 0 || j == i) {
+                            arrayLat.push(1)
+                        } else {
+                            arrayLat.push(array[i - 1][j - 1] + array[i - 1][j]);
+                        }
+                    }
+                    //console.log(arraySon);
+                    array.push(arrayLat)
+                }
+                console.log(array[n - 2][m - 2] + array[n - 2][m - 1])
+            }
+            console.timeEnd("time");
+        };
+        calculate1(200, 5)
+    }
+</script>
+<body>
+</body>
+</html>
