@@ -4,101 +4,100 @@
     <meta charset="UTF-8">
     <title>myChart</title>
     <script type="text/javascript">
-        //模拟输入参数，抽象为一个接口参数
-        let testData = {
-            type:"name",
-            sort:"DESC",
-            data:[
-                {
-                    name:"apple",
-                    value:5
-                },
-                {
-                    name:"pineapple",
-                    value:30
-                },
-                {
-                    name:"pen",
-                    value:6
-                },
-                {
-                    name:"pens",
-                    value:15
+        window.onload = function () {
+
+            //模拟输入参数，抽象为一个接口参数
+            let testData = {
+                type:"name",
+                sort:"ASC",
+                data:[
+                    {
+                        name:"apple",
+                        value:20
+                    },
+                    {
+                        name:"pineapple",
+                        value:30
+                    },
+                    {
+                        name:"banana",
+                        value:6
+                    },
+                    {
+                        name:"pens",
+                        value:15
+                    }
+                ]
+            };
+            //图表所需的默认配置项
+            let option={
+                nameLen:0,   //名称最大长度
+                maxValue:0   //最大值
+            };
+            /*
+             * 柱图初始化
+             * */
+            function initChart(param){
+                if(param.data){
+                    option.category = param.data.length
                 }
-            ]
-        };
-        //图表所需的默认配置项
-        let option={
-            nameLen:0,   //名称最大长度
-            maxValue:0   //最大值
-        };
-        /*
-         * 柱图初始化
-         * */
-        function initChart(param){
-            if(param.data){
-                option.category = param.data.length
-            }
-            option.nameLen = sortFn("DESC","name",param.data)[0].name.length;
-            option.maxValue = sortFn("DESC","value",param.data)[0].value;
-            let lastData = sortFn(param.sort,param.type,param.data); //最终处理对象
+                option.nameLen = sortFn("DESC","name",param.data)[0].name.length;
+                option.maxValue = sortFn("DESC","value",param.data)[0].value;
+                let lastData = sortFn(param.sort,param.type,param.data); //最终接口数据处理对象
 
-            //绘制开始--start
-            //top
-            console.log(decodeURI("\u250c" +"\u2500".repeat(option.nameLen)+ "\u252c" +"\u2500".repeat(20) + "\u2510"));
-            for(let i=0;i<lastData.length;i++){
-                let columnNum = parseInt(lastData[i].value*20/option.maxValue);
-                console.log(decodeURI("\u2502" + "\u0020".repeat(option.nameLen-lastData[i].name.length) + lastData[i].name + "\u2502" + "\u2588".repeat(columnNum) + "\u0020".repeat(20-columnNum) + "\u2502"));
-                if(i==lastData.length - 1){
-                    console.log(decodeURI("\u2514" +"\u2500".repeat(option.nameLen)+ "\u2534" +"\u2500".repeat(20) + "\u2518"));
-                }else {
-                    console.log(decodeURI("\u251c" +"\u2500".repeat(option.nameLen)+ "\u253c" +"\u2500".repeat(20) + "\u2524"));
+                //绘制开始--start
+                //绘制图表边框header
+                console.log(decodeURI("\u250c" +"\u2500".repeat(option.nameLen)+ "\u252c" +"\u2500".repeat(20) + "\u2510"));
+                for(let i=0;i<lastData.length;i++){
+                    let columnNum = parseInt(lastData[i].value*20/option.maxValue);
+                    //绘制图表名称 + 柱子
+                    console.log(decodeURI("\u2502" + "\u0020".repeat(option.nameLen-lastData[i].name.length) + lastData[i].name + "\u2502" + "\u2588".repeat(columnNum) + "\u0020".repeat(20-columnNum) + "\u2502"));
+                    if(i==lastData.length - 1){
+                        //绘制图表边框footer
+                        console.log(decodeURI("\u2514" +"\u2500".repeat(option.nameLen)+ "\u2534" +"\u2500".repeat(20) + "\u2518"));
+                    }else {
+                        //绘制图表边框
+                        console.log(decodeURI("\u251c" +"\u2500".repeat(option.nameLen)+ "\u253c" +"\u2500".repeat(20) + "\u2524"));
+                    }
                 }
+                //绘制开始--end
             }
+            /*
+             * 排序
+             *param：  descOrAsc --升序or降序
+             *         key:排序规则,以名称排序，或者以值排序  name,value
+             *return:  array
+             * */
+            function sortFn(descOrEsc,key,data){
 
-        }
-        /*
-         * 排序算法
-         *param：  descOrEsc --升序or降序
-         *         key:排序规则,以名称排序，或者以值排序  name,value
-         * */
-        function sortFn(descOrEsc,key,data){
-
-            if(descOrEsc =="DESC"){
-                //降序
-                if(key=="value"){
-                    return data.sort(function(a,b){
-                        return b[key]-a[key];
-                    });
-                }else{
-                    return data.sort(function(a,b){
-                        if(a.name.length==b.name.length){
+                if(descOrEsc =="DESC"){
+                    //降序
+                    if(key=="value"){
+                        return data.sort(function(a,b){
+                            return b[key]-a[key];
+                        });
+                    }else{
+                        return data.sort(function(a,b){
                             return b[key].localeCompare(a[key]);
-                        }else{
-                            return b[key].length-a[key].length;
-                        }
-                    });
-                }
+                        });
+                    }
 
-            }else{
-                //升序
-                if(key=="value"){
-                    return data.sort(function(a,b){
-                        return a[key]-b[key];
-                    });
                 }else{
-                    return data.sort(function(a,b){
-                        if(a[key].length==b[key].length){
+                    //升序
+                    if(key=="value"){
+                        return data.sort(function(a,b){
+                            return a[key]-b[key];
+                        });
+                    }else{
+                        return data.sort(function(a,b){
                             return a[key].localeCompare(b[key]);
-                        }else{
-                            return a[key].length-b[key].length;
-                        }
-                    });
+                        });
+                    }
                 }
             }
+            //主入口
+            initChart(testData);
         }
-        //主入口
-        initChart(testData);
     </script>
 </head>
 <body>
