@@ -1,4 +1,3 @@
-
 /*
 *获取当前页面中的标签数量
 * */
@@ -13,4 +12,4 @@ function getTagsMap() {
         return a;
     }, {})
 }
-getTagsMap()
+getTagsMap();

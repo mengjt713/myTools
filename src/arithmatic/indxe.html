@@ -2,9 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>计算杨辉三角第n行m个数字(2)</title>
     <script>
         window.onload =function () {
+            /*
+            * 阶乘
+            * */
             function fac(n){
                 if(n<0){
                     return -1
@@ -14,9 +17,13 @@
                     return n*fac(n-1)
                 }
             }
-
+            /*
+             * 计算杨辉三角第n行m个数字
+             *  @param:   n-杨辉三角第n行
+             *            m-杨辉三角某行第m个
+             *  @returns: number
+             * */
             function calculate(n,m) {
-
                 if(n==1||m==1||n==m){
                     return 1
                 }else{
@@ -28,7 +35,6 @@
             console.log(calculate(200,5));
             console.timeEnd("time");
         }
-
     </script>
 </head>
 <body>

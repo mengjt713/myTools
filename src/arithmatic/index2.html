@@ -25,21 +25,21 @@
             } else {
                 for (let i = 0; i < n - 1; i++) {
                     let arrayItem = [];
-                    for (let j = 0; j < i + 1; j++) {
+                    for (let j = 0; j < i+1; j++) {
                         if (i == 0 || j == 0 || j == i) {
                             arrayItem.push(1)
                         } else {
                             arrayItem.push(array[i - 1][j - 1] + array[i - 1][j]);
                         }
                     }
-                    //console.log(arrayItem);
+                    console.log(arrayItem);
                     array.push(arrayItem)
                 }
                 console.log(array[n - 2][m - 2] + array[n - 2][m - 1])
             }
             console.timeEnd("time");
         };
-        calculate1(200, 5)
+        calculate1(10, 5)
     }
 </script>
 <body>
