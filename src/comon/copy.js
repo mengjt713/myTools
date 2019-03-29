@@ -35,3 +35,28 @@ function cloneJSON(source) {
 function isObject(x) {
     return Object.prototype.toString.call(x) === '[object Object]';
 }
+//定义检测类型函数
+function checkedType(target){
+    return Object.prototype.toString.call(target).slice(8,-1)
+}
+function clone1(target){
+    //判断数据类型
+    //初始化一个变量result
+    let result,targetType = checkedType(target);
+    if(targetType ==='Object'){
+        result = {}
+    }else if(targetType ==='Array'){
+        result = [];
+    }else {
+        return target
+    }
+    for(let i in target){
+        let value = target[i];
+        if(checkedType(value) ==='Object'||checkType ==='Array'){
+            result[i] = clone(value)
+        }else{
+            result[i] = value;
+        }
+    }
+    return result;
+}
